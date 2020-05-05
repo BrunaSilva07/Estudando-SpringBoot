@@ -1,8 +1,8 @@
 package br.com.alura.forum.controller;
 
+import br.com.alura.forum.controller.DTO.DetalaheTopicoDTO;
 import br.com.alura.forum.controller.DTO.TopicoDTO;
 import br.com.alura.forum.controller.Form.TopicoForm;
-import br.com.alura.forum.model.Curso;
 import br.com.alura.forum.model.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
@@ -11,12 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.persistence.Id;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping({"/topicos"})
@@ -41,10 +39,9 @@ public class TopicoController {
     }
 
     @GetMapping(path = {"/{id}"})
-    public ResponseEntity<List<Topico>> listarId(@PathVariable Long id) {
-        return repository.findByCursoId(id)
-                .map(c -> ResponseEntity.ok().body(c))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<DetalaheTopicoDTO> buscarPorId(@PathVariable Long id) {
+        Topico topico = repository.getOne(id);
+        return ResponseEntity.ok().body(new DetalaheTopicoDTO(topico));
     }
 
     @PostMapping
