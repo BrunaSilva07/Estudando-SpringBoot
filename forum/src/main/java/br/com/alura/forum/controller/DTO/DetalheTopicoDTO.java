@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DetalaheTopicoDTO {
+public class DetalheTopicoDTO {
 
     private long id;
     private String titulo;
@@ -18,7 +18,7 @@ public class DetalaheTopicoDTO {
     private StatusTopico status;
     private List<RespostaDTO> respostas;
 
-    public DetalaheTopicoDTO(Topico topico) {
+    public DetalheTopicoDTO(Topico topico) {
         this.id = topico.getId();
         this.titulo = topico.getTitulo();
         this.mensagem = topico.getMensagem();
