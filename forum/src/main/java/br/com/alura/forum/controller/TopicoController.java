@@ -9,6 +9,8 @@ import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 import javassist.runtime.Desc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,6 +37,7 @@ public class TopicoController {
 
     @GetMapping
     @Transactional
+    @Cacheable(value = "listaDeTopicos")
     public Page<TopicoDTO> lista(@RequestParam(required = false) String nomeCurso,
                                  @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable paginacao) {
 
@@ -55,6 +58,7 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoForm form,
                                                UriComponentsBuilder uriBuilder) {
         this.form = form;
@@ -66,6 +70,7 @@ public class TopicoController {
 
     @PutMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<TopicoDTO> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarTopicoForm form){
         Optional<Topico> optional = repository.findById(id);
         if (optional.isPresent()) {
@@ -77,6 +82,7 @@ public class TopicoController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "listaDeTopicos", allEntries = true)
     public ResponseEntity<?> deletar(@PathVariable Long id) {
         Optional<Topico> topico = repository.findById(id);
         if (topico.isPresent()) {
