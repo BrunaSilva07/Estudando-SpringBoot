@@ -14,4 +14,21 @@ Construção de uma APIs REST usando Spring Boot
 2° A anotação CacheEvict deve receber os atributos 'value = ' com o nome dado ao cache do método 'lista' e 'allEntries =' com true para limpar todos os registros do cache
 
 -Boas práticas no uso de cache: 
-Sem implementação de código, debate sobre os prós e contras o uso do cache, evitar o uso de cache em tabelas que são modificadas com frequência para evitar queda na performance, utilizar em tabelas que raramente for altera).
+Sem implementação de código, debate sobre os prós e contras o uso do cache, evitar o uso de cache em tabelas que são modificadas com frequência para evitar queda na performance, utilizar em tabelas que raramente for altera.
+
+# Aula3 -  Proteção com Spring Security
+-Habilitando o Spring Security: 
+1° incluindo a dependência 'spring-boot-starter-security' no pom.xml
+2° criando a classe: SecurityConfigurations
+3° incluindo as anotações 'SecurityConfigurations' e ‘Configuration’
+
+-Liberando acesso aos endpoints públicos: 
+1° incluindo os três métodos ‘configure’ da classe abstrata WebSecurityConfigurerAdapter, que foi extendida a classe SecurityConfigurations: AuthenticationManagerBuilder, HttpSecurity e WebSecurity
+
+-Restringindo o acesso aos endpoints privados: 
+1° Criando a classe entidade Perfil
+2° implementando o ‘GrantedAuthority’ a classe Perfil
+3° implementando o método ‘getAuthority’
+4° criando as classes ‘AutenticacaoService’ e ‘UsuarioRepository’
+5° implementando a classe ‘UserDetailsService’ e implementando o método ‘loadUserByUsername’.
+
